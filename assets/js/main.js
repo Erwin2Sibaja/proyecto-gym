@@ -26,12 +26,19 @@ window.addEventListener('DOMContentLoaded', () => {
     const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
     const motion = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
 
-    function trackGymDestination(destination, uiLang) {
+    function trackGymDestination(destination, uiLang, isChange = false) {
         if (!['cancun', 'cabos'].includes(destination) || !['es', 'en'].includes(uiLang)) return;
         const eventName = 'select_gym_destination';
-        const params = { destination, ui_lang: uiLang, page_path: window.location.pathname };
+        const params = {
+            destination_name: destination,
+            destination,
+            ui_lang: uiLang,
+            is_change: isChange,
+            page_path: window.location.pathname
+        };
         try {
             if (typeof window.gtag === 'function') {
+                console.log('[GA4] Evento enviado:', eventName, params);
                 window.gtag('event', eventName, params);
                 return;
             }
@@ -109,7 +116,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (!['cancun', 'cabos'].includes(selectedDestination) || !['es', 'en'].includes(selectedLang)) return;
         destino = selectedDestination;
         lang = selectedLang;
-        if (!editing) trackGymDestination(destino, lang);
+        trackGymDestination(destino, lang, editing);
         storage.set('uiDestino', destino);
         storage.set('uiLang', lang);
         translate();
