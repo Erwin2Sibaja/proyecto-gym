@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -8,7 +9,16 @@
   <link rel="icon" href="https://www.hotelessolaris.com/favicon_.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/styles/styles.css">
   <script defer src="./assets/js/main.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J4XCZPQZQW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-J4XCZPQZQW');
+  </script>
 </head>
+
 <body>
   <div id="onboarding" class="onboarding-overlay">
     <div id="step-preferences" class="onboarding-step">
@@ -63,7 +73,8 @@
   <div id="app" hidden>
     <header>
       <div class="header-left">
-        <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menú" aria-expanded="false" aria-controls="routineNav">☰</button>
+        <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menú" aria-expanded="false"
+          aria-controls="routineNav">☰</button>
         <img src="./assets/images/logo.png" alt="Hoteles Solaris" class="logo-header">
       </div>
       <button class="preferences-button" id="preferencesBtn" aria-controls="onboarding"></button>
@@ -107,4 +118,5 @@
     </nav>
   </div>
 </body>
+
 </html>
