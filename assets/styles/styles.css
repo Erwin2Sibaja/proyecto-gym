@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --pri: #009681;
+  --pri-dark: #007a68;
+  --pri-light: #e0f5f1;
+  --ink: #2b3a42;
+  --text-muted: #53666f;
+  --bg: #f2f6f5; 
+  --shadow-light: #ffffff;
+  --shadow-dark: #d5dedc;
+}
+
+html { overflow-x: clip; }
+
+body {
+  width: 100%; min-width: 0; overflow-x: clip;
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+}
+
+/* ONBOARDING */
+.onboarding-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: url('../images/home.webp') center/cover no-repeat;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.onboarding-overlay::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(242, 246, 245, 0.85); 
+  backdrop-filter: blur(12px);
+}
+.onboarding-step {
+  position: relative; z-index: 10;
+  display: none; flex-direction: column; align-items: center;
+  text-align: center; width: 90%; max-width: 400px;
+  background: var(--bg); padding: 2.5rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 10px 10px 20px var(--shadow-dark), -10px -10px 20px var(--shadow-light);
+  animation: stepIn 0.5s ease forwards;
+}
+.onboarding-step.activo { display: flex; }
+.onboarding-step h2 { color: var(--pri); font-size: 1.6rem; margin-bottom: 1.5rem; font-weight: 700; }
+.onboarding-step h2 small { font-size: 1.1rem; color: var(--text-muted); font-weight: 400; display: block; margin-top: 0.3rem; }
+.onboarding-options { display: flex; flex-direction: column; gap: 1.2rem; width: 100%; }
+.onboarding-btn {
+  background: var(--bg); border: none;
+  color: var(--ink); padding: 1.1rem; border-radius: 16px;
+  font-size: 1.1rem; font-weight: 600; cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+}
+.onboarding-btn:active {
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  transform: translateY(2px);
+}
+.onboarding-btn:hover { color: var(--pri); }
+@keyframes stepIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* APP LAYOUT */
+#app { width: 100%; min-width: 0; min-height: 100%; padding-bottom: calc(var(--bottom-menu-height, 140px) + 16px); }
+
+header {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: max(1rem, env(safe-area-inset-top)) max(1.2rem, env(safe-area-inset-right)) 1rem max(1.2rem, env(safe-area-inset-left)); background: var(--bg);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+.header-left { display: flex; align-items: center; gap: 1rem; }
+.hamburger-btn { display: none; background: none; border: none; font-size: 2rem; color: var(--pri); cursor: pointer; }
+.logo-header { height: 38px; width: auto; display: block; }
+
+/* SECTIONS & TYPOGRAPHY */
+.seccion { display: none; padding: 1.5rem 1.2rem; }
+.seccion.activo { display: block; animation: slideIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+section h2 { color: var(--pri); text-align: center; font-size: 1.4rem; margin: 1.5rem 0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+@keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+
+
+/* WARMUP & EXERCISE CARDS */
+.calentamiento, .ejercicio {
+  background: var(--bg); border-radius: 24px;
+  padding: 1.5rem; margin: 0 0 2rem 0;
+  box-shadow: 8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light);
+}
+.calentamiento-titulo {
+  color: var(--pri); font-weight: 700; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;
+}
+.calentamiento-ejercicio { margin-bottom: 1.5rem; }
+.calentamiento-ejercicio:last-child { margin-bottom: 0; }
+.calentamiento-ejercicio h4, .ejercicio h3 {
+  color: var(--ink); font-weight: 700; font-size: 1.25rem; margin-bottom: 1rem;
+}
+.calentamiento-desc, .ej-desc {
+  color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-top: 1rem;
+}
+
+.variacion {
+  margin-top: 1.5rem; background: var(--bg); border-radius: 16px;
+  padding: 1.2rem; box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
+}
+.var-label {
+  display: inline-block; background: var(--pri-dark); color: #fff; font-weight: 600;
+  font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; padding: 0.4rem 0.8rem; margin-bottom: 1rem;
+}
+.variacion h4 { color: var(--pri-dark); margin-bottom: 0.8rem; font-size: 1.1rem; }
+
+/* SWIPEABLE IMAGES */
+.imagenes-ejercicio { --gap: 16px; --cards: 1.1; position: relative; overflow: hidden; border-radius: 16px; margin: 0 -0.5rem; padding: 0 0.5rem; }
+.imagenes-ejercicio .track {
+  display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory;
+  scroll-behavior: smooth; -webkit-overflow-scrolling: touch; padding-bottom: 8px;
+}
+.imagenes-ejercicio .track::-webkit-scrollbar { display: none; }
+.imagenes-ejercicio .slide {
+  flex: 0 0 calc((100% / var(--cards)) - var(--gap));
+  scroll-snap-align: center; border-radius: 16px; overflow: hidden;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Warmup and Main exercises images */
+.calentamiento-ejercicio .slide > img,
+.ejercicio .slide > img {
+  width: 100%; height: auto; max-height: 450px; aspect-ratio: 4/5; object-fit: cover; object-position: center top; display: block;
+}
+
+/* FLOATING PILL SUBNAV */
+.subnav {
+  position: sticky; top: var(--header-height, 80px); z-index: 15;
+  background: var(--bg); display: flex; gap: 8px; padding: 8px; border-radius: 999px;
+  box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+  margin: 0 1rem 2rem;
+}
+.subnav-btn {
+  flex: 1; border: none; background: transparent; color: var(--text-muted);
+  padding: 0.9rem 1rem; border-radius: 999px; font-weight: 700; font-size: 1.05rem;
+  transition: all 0.3s ease; cursor: pointer;
+}
+.subnav-btn.activo {
+  background: var(--pri-dark); color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 150, 129, 0.4);
+}
+.subseccion { display: none; }
+.subseccion.activo { display: block; animation: slideIn 0.3s ease both; }
+
+/* BOTTOM MENU (Default Tablet & Mobile) */
+.menu-inferior {
+  position: fixed; inset: auto 0 0; width: 100%; max-width: 100%; margin: 0; z-index: 30;
+  background: rgba(242, 246, 245, 0.95); backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: stretch;
+  padding: 0.8rem max(0.5rem, env(safe-area-inset-right)) calc(1rem + env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
+  border-top-left-radius: 24px; border-top-right-radius: 24px;
+}
+.menu-boton {
+  flex: 1; background: none; border: 2px solid transparent; color: var(--text-muted); font-size: 0.85rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem 0.3rem;
+  font-weight: 600; border-radius: 18px; transition: all 0.25s ease; cursor: pointer;
+}
+.menu-boton p { width: 100%; min-width: 0; overflow-wrap: anywhere; text-align: center; }
+.menu-boton img { width: 28px; height: 28px; opacity: 0.6; transition: all 0.25s ease; filter: grayscale(100%); }
+.menu-boton.activo {
+  color: var(--pri-dark);
+  border-color: var(--pri-dark);
+  background: rgba(0, 150, 129, 0.06);
+}
+.menu-boton.activo img {
+  opacity: 1;
+  filter: grayscale(0%) sepia(100%) hue-rotate(125deg) saturate(250%);
+  transform: translateY(-2px);
+}
+.menu-boton.activo p { transform: translateY(-1px); }
+
+/* TIPS BAR */
+.tips {
+  position: relative; z-index: 10;
+  display: flex; align-items: center; gap: 0.8rem;
+  background: var(--bg); padding: 1rem 1.2rem; margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+.tips-icon { font-size: 1.4rem; }
+.tips-list {
+  display: flex; gap: 1rem; overflow-x: auto; scroll-behavior: smooth;
+  list-style: none; margin: 0; padding: 0 0 4px 0; flex: 1; -webkit-overflow-scrolling: touch;
+}
+.tips-list::-webkit-scrollbar { display: none; }
+.chip {
+  flex: 0 0 auto; white-space: nowrap;
+  font-size: 1rem; color: var(--ink); font-weight: 600;
+  background: var(--bg); border: none;
+  padding: 0.6rem 1rem; border-radius: 999px;
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+.tips-close {
+  background: var(--bg); border: none; cursor: pointer;
+  width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center;
+  font-size: 1.4rem; color: var(--text-muted);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+}
+.tips-close:active { box-shadow: inset 2px 2px 4px var(--shadow-dark), inset -2px -2px 4px var(--shadow-light); }
+
+/* DISCLAIMER BOX */
+.disclaimer-box { text-align: center; }
+.disclaimer-box h3 { color: var(--pri); margin-bottom: 1rem; font-size: 1.6rem; font-weight: 700; }
+.disclaimer-box p { color: var(--ink); line-height: 1.6; font-size: 1.1rem; margin-bottom: 1.5rem; }
+.disclaimer-box button {
+  padding: 1.2rem 2.5rem; border: none; border-radius: 16px;
+  background: var(--pri-dark); color: #fff; cursor: pointer;
+  font-weight: 700; font-size: 1.2rem; width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 150, 129, 0.3); transition: all 0.2s;
+}
+.disclaimer-box button:active { transform: translateY(2px); box-shadow: 0 4px 8px rgba(0, 150, 129, 0.3); }
+
+/* ========================================= */
+/* RESPONSIVE DESIGN (TABLET & DESKTOP)      */
+/* ========================================= */
+@media (min-width: 768px) {
+  /* En tablet (768px - 1023px) mantenemos el menu-inferior igual a mobile */
+  /* Solo aplicamos layout de Grid para los ejercicios */
+  .seccion.activo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    align-items: start;
+    padding: 1.5rem;
+  }
+  .seccion.activo > h2,
+  .seccion.activo > .subnav,
+  .seccion.activo > .calentamiento {
+    grid-column: 1 / -1;
+  }
+  
+  .subseccion.activo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .subseccion.activo > h2,
+  .subseccion.activo > .calentamiento {
+    grid-column: 1 / -1;
+  }
+  .ejercicio, .calentamiento { margin: 0; }
+  .calentamiento { margin-bottom: 2.5rem; }
+  
+  .imagenes-ejercicio { --cards: 1.2; --gap: 20px; }
+}
+
+@media (min-width: 1024px) {
+  #app { padding-bottom: 0; }
+  .hamburger-btn { display: block; }
+
+  .imagenes-ejercicio { --cards: 2.5; --gap: 24px; }
+
+  
+  /* Hacemos que el track ocupe todo el espacio pero se alinee a la izquierda */
+  .imagenes-ejercicio .track {
+      justify-content: flex-start;
+  }
+
+  /* En desktop, el slide se adapta al contenido (la imagen) en lugar de un porcentaje fijo */
+  .imagenes-ejercicio .slide {
+      flex: 0 0 auto; 
+  }
+
+  /* Forzamos el alto máximo y dejamos que el aspect-ratio calcule el ancho perfecto */
+  .calentamiento-ejercicio .slide > img {
+      height: 350px; /* Alto fijo seguro para calentamientos */
+      width: auto;   /* El ancho se calcula solo */
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center top;
+  }
+
+  .ejercicio .slide > img {
+      height: 450px; /* Alto fijo para ejercicios principales */
+      width: auto;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center top;
+  }
+  
+  /* Menu hamburguesa overlay/sidebar para Desktop */
+  .menu-inferior {
+    position: fixed; top: 70px; left: -320px; bottom: 0; width: 300px;
+    display: flex; height: calc(100dvh - 70px); flex-direction: column; justify-content: flex-start;
+    padding: 2rem 1.5rem; border-radius: 0 24px 24px 0;
+    transition: left 0.3s ease; box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+  }
+  .menu-inferior.open {
+    left: 0;
+  }
+  .menu-boton {
+    flex: none; flex-direction: row; gap: 1.2rem; justify-content: flex-start;
+    padding: 1.2rem; width: 100%; margin-bottom: 1rem; border-radius: 16px;
+  }
+  .menu-boton p { display: block; font-size: 1.15rem; transform: translateY(0); }
+  .menu-boton.activo p { transform: translateY(0); }
+  .menu-boton.activo {
+    background: var(--pri-light);
+    border-color: transparent;
+  }
+}
+
+/* Mobile controls share the existing Solaris palette and soft surfaces. */
+[hidden] { display: none !important; }
+button, select { font-family: inherit; touch-action: manipulation; }
+button:focus-visible, select:focus-visible { outline: 3px solid var(--pri-dark); outline-offset: 4px; }
+.onboarding-overlay { overflow-y: auto; justify-content: flex-start; padding: 1.5rem 0; }
+.onboarding-step { flex-shrink: 0; margin-block: auto; }
+.onboarding-options { gap: 2rem; }
+.preference-field { border: 0; padding: 0; min-width: 0; text-align: left; }
+.preference-field legend { padding: 0; margin-bottom: 1rem; color: var(--ink); font-weight: 600; line-height: 1.5; }
+.preference-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.preference-choice { position: relative; min-width: 0; cursor: pointer; }
+.preference-choice input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.preference-choice span { display: flex; align-items: center; justify-content: center; min-height: 64px; height: 100%; padding: 1rem 0.5rem; border: 2px solid transparent; border-radius: 16px; background: var(--bg); color: var(--ink); font-weight: 600; line-height: 1.4; text-align: center; overflow-wrap: anywhere; box-shadow: 4px 4px 10px var(--shadow-dark), -4px -4px 10px var(--shadow-light); }
+.preference-choice input:checked + span { border-color: var(--pri-dark); background: var(--pri-light); color: var(--pri-dark); box-shadow: inset 0 0 0 1px var(--pri-dark); }
+.preference-choice input:focus-visible + span { outline: 3px solid var(--pri-dark); outline-offset: 4px; }
+.onboarding-actions { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 0.5rem; width: 100%; }
+.onboarding-actions > button { width: 100%; min-height: 56px; }
+.disclaimer-box .onboarding-actions { margin-top: 2rem; }
+.disclaimer-box .text-button { line-height: 1.5; }
+.text-button, .disclaimer-box .text-button { min-height: 48px; padding: 0.75rem; background: transparent; color: var(--pri-dark); border: 0; box-shadow: none; cursor: pointer; }
+.preferences-button { min-height: 48px; max-width: 58%; padding: 0.5rem 0.75rem; background: var(--pri-light); color: var(--pri-dark); border: 0; border-radius: 16px; font-size: 0.9rem; line-height: 1.4; cursor: pointer; }
+.header-left { min-width: 0; }
+.logo-header { max-width: 100%; object-fit: contain; }
+.gallery-controls { display: flex; align-items: center; justify-content: center; gap: 1rem; padding-block: 0.5rem; }
+.gallery-controls button { width: 48px; height: 48px; border: 0; border-radius: 50%; background: var(--pri-light); color: var(--pri-dark); font-size: 1.75rem; cursor: pointer; }
+.gallery-controls button:disabled { opacity: 0.45; cursor: default; }
+.gallery-count { min-width: 4rem; text-align: center; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.subnav-btn { min-width: 0; padding-inline: 0.5rem; }
+.ejercicio h3, .calentamiento-ejercicio h4 { line-height: 1.35; overflow-wrap: anywhere; }
+.menu-boton { min-width: 0; min-height: 48px; line-height: 1.3; transition-property: color, background-color, border-color; }
+.menu-boton.activo { color: var(--pri-dark); border-color: var(--pri-dark); }
+#loadStatus { padding: 2rem 1.2rem; text-align: center; line-height: 1.6; }
+#retryLoad { margin-top: 1rem; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

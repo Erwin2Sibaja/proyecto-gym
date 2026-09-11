@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, follow">
+  <title>Rutinas Gym - Intro</title>
+  <link rel="icon" href="https://www.hotelessolaris.com/favicon_.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/styles/styles.css">
+  <script defer src="./assets/js/main.js"></script>
+</head>
+<body>
+  <div id="onboarding" class="onboarding-overlay">
+    <div id="step-preferences" class="onboarding-step">
+      <h2 tabindex="-1" data-ui="preferences">Preferencias</h2>
+      <form id="preferencesForm" class="onboarding-options">
+        <fieldset class="preference-field">
+          <legend data-ui="destination">¿En qué destino entrenas?</legend>
+          <div class="preference-choices">
+            <label class="preference-choice">
+              <input type="radio" name="destination" value="cancun" required>
+              <span>Cancún</span>
+            </label>
+            <label class="preference-choice">
+              <input type="radio" name="destination" value="cabos" required>
+              <span>Los Cabos</span>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset class="preference-field">
+          <legend>Idioma / Language</legend>
+          <div class="preference-choices">
+            <label class="preference-choice">
+              <input type="radio" name="language" value="es" required>
+              <span>Español</span>
+            </label>
+            <label class="preference-choice">
+              <input type="radio" name="language" value="en" required>
+              <span>English</span>
+            </label>
+          </div>
+        </fieldset>
+        <div class="onboarding-actions">
+          <button type="submit" class="onboarding-btn" id="savePreferences">Continuar</button>
+          <button type="button" class="text-button" id="cancelPreferences" data-ui="cancel" hidden>Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Step 3: Disclaimer -->
+    <div id="step-disclaimer" class="onboarding-step">
+      <div class="disclaimer-box">
+        <h3 id="disclaimerTitle" tabindex="-1" data-ui="notice"></h3>
+        <p id="disclaimerText"></p>
+        <div class="onboarding-actions">
+          <button id="acceptDisclaimer" data-ui="accept"></button>
+          <button id="noticeBack" class="text-button" data-ui="back"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" hidden>
+    <header>
+      <div class="header-left">
+        <button id="hamburgerBtn" class="hamburger-btn" aria-label="Menú" aria-expanded="false" aria-controls="routineNav">☰</button>
+        <img src="./assets/images/logo.png" alt="Hoteles Solaris" class="logo-header">
+      </div>
+      <button class="preferences-button" id="preferencesBtn" aria-controls="onboarding"></button>
+    </header>
+    <div id="consejos" class="tips">
+      <div class="tips-icon" aria-hidden="true">💡</div>
+      <ul class="tips-list">
+        <!-- JS will populate tips -->
+      </ul>
+      <button class="tips-close" aria-label="Ocultar consejos">×</button>
+    </div>
+    <div id="loadStatus" role="status" hidden>
+      <p id="loadMessage"></p>
+      <button id="retryLoad" class="onboarding-btn" data-ui="retry" hidden></button>
+    </div>
+    <main id="sections">
+      <!-- JS will populate sections -->
+    </main>
+
+    <nav class="menu-inferior" id="routineNav">
+      <button class="menu-boton activo" data-seccion="pecho">
+        <img src="./assets/images/icons/chest-icon.webp" alt="">
+        <p></p>
+      </button>
+      <button class="menu-boton" data-seccion="piernas">
+        <img src="./assets/images/icons/leg-icon.webp" alt="">
+        <p></p>
+      </button>
+      <button class="menu-boton" data-seccion="brazo">
+        <img src="./assets/images/icons/arm-icon.webp" alt="">
+        <p></p>
+      </button>
+      <button class="menu-boton" data-seccion="hombro">
+        <img src="./assets/images/icons/core.webp" alt="">
+        <p></p>
+      </button>
+      <button class="menu-boton" data-seccion="full-body">
+        <img src="./assets/images/icons/rest-icon.webp" alt="">
+        <p></p>
+      </button>
+    </nav>
+  </div>
+</body>
+</html>
