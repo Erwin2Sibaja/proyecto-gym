@@ -26,6 +26,46 @@ window.addEventListener('DOMContentLoaded', () => {
     const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
     const motion = () => matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth';
 
+    function trackGymDestination(destination, uiLang) {
+        if (!['cancun', 'cabos'].includes(destination) || !['es', 'en'].includes(uiLang)) return;
+        const eventName = 'select_gym_destination';
+        const params = { destination, ui_lang: uiLang, page_path: window.location.pathname };
+        try {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', eventName, params);
+                return;
+            }
+        } catch { /* Try GTM if gtag is unavailable or fails. */ }
+        try {
+            if (typeof window.dataLayer?.push === 'function') {
+                window.dataLayer.push({ event: eventName, ...params });
+                return;
+            }
+        } catch { /* Analytics must not interrupt onboarding. */ }
+
+        // Enable only after /api/gym/track-visit is available.
+        const enableBackendFallback = false;
+        if (!enableBackendFallback) return;
+        try {
+            const endpoint = '/api/gym/track-visit';
+            const body = JSON.stringify({ event: eventName, ...params });
+            let queued = false;
+            try {
+                if (typeof navigator.sendBeacon === 'function') {
+                    queued = navigator.sendBeacon(endpoint, new Blob([body], { type: 'application/json' }));
+                }
+            } catch { /* Fall back to fetch if beacon fails. */ }
+            if (!queued && typeof window.fetch === 'function') {
+                void window.fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body,
+                    keepalive: true
+                }).catch(() => {});
+            }
+        } catch { /* Keep the UI usable without a telemetry backend. */ }
+    }
+
     function translate() {
         document.documentElement.lang = lang;
         $$('[data-ui]').forEach(el => { el.textContent = t()[el.dataset.ui]; });
@@ -64,8 +104,12 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     $('#preferencesForm').addEventListener('submit', event => {
         event.preventDefault();
-        destino = $('input[name=destination]:checked').value;
-        lang = $('input[name=language]:checked').value;
+        const selectedDestination = $('input[name=destination]:checked')?.value;
+        const selectedLang = $('input[name=language]:checked')?.value;
+        if (!['cancun', 'cabos'].includes(selectedDestination) || !['es', 'en'].includes(selectedLang)) return;
+        destino = selectedDestination;
+        lang = selectedLang;
+        if (!editing) trackGymDestination(destino, lang);
         storage.set('uiDestino', destino);
         storage.set('uiLang', lang);
         translate();
